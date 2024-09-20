@@ -21,7 +21,7 @@ namespace Application.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task UdapteAsync(Series series)
+        public async Task UpdateAsync(Series series)
         {
             _context.Series.Entry(series).State = EntityState.Modified;
             await _context.SaveChangesAsync();

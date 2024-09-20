@@ -1,0 +1,60 @@
+﻿@model Application.ViewModels.SalveSerietViewModel
+
+@{
+    bool editMode = Model.Id == 0 ? false : true;
+    ViewData["Title"] = editMode ? "Editando serie" : "Creando serie";
+}
+
+<div class="accordion-flush">
+    <div class="col-6 offset-3">
+        <div class="card">
+            <div class="card-header bg-black text-light">
+                <h4>@(editMode ? $"Editando la serie: {Model.Name}" : "Creando una nueva serie")</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" asp-controller="Serie" asp-action="@(editMode ? "Edit" : "Create")">
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label">Nombre: </label>
+                        <input type="text" asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ImagenPortada" class="form-label">Url de la imagen de portada: </label>
+                         <input type="text" asp-for="ImagenPortada" class="form-control" />
+                        <span asp-validation-for="ImagenPortada" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="EnlaceVideo" class="form-label">Enlace del video: </label>
+                        <input type="text" asp-for="EnlaceVideo" class="form-control" />
+                        <span asp-validation-for="EnlaceVideo" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ProductoraId" class="form-label">Productora: </label>
+                        <select asp-for="ProductoraId" asp-items="ViewBag.ProductoraList" class="form-select"></select>
+                        <span asp-validation-for="ProductoraId" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="GeneroPrimarioId" class="form-label">Género primario: </label>
+                        <select asp-for="GeneroPrimarioId" asp-items="ViewBag.GeneroList" class="form-select"></select>
+                        <span asp-validation-for="GeneroPrimarioId" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="GeneroSecundarioId" class="form-label">Género secundario: </label>
+                        <select asp-for="GeneroSecundarioId" asp-items="ViewBag.GeneroList" class="form-select"></select>
+                        <span asp-validation-for="GeneroSecundarioId" class="text-danger"></span>
+                    </div>
+
+                    <input type="hidden" asp-for="Id" />
+
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <a asp-controller="Serie" asp-action="Index" class="btn btn-warning">Volver atrás</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

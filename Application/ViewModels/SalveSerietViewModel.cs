@@ -21,8 +21,6 @@ namespace Application.ViewModels
 
         [Required(ErrorMessage = "Debe colocar el genero primario de la serie")]
         public int GeneroPrimarioId { get; set; }
-
-        [Required(ErrorMessage = "Debe colocar el genero secundario de la serie")]
         public int GeneroSecundarioId { get; set; }
     }
 }

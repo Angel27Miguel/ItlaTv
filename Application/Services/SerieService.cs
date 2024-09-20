@@ -3,6 +3,7 @@
 using Application.Repository;
 using Application.ViewModels;
 using Database.Contexts;
+using Database.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services
@@ -41,11 +42,26 @@ namespace Application.Services
             }).ToList();
         }
 
-        public async Task<SerietViewModel> GetByIdSaveViewModel(int id) 
+        public async Task CreateSerie(SalveSerietViewModel vm)
+        {
+            Series series = new Series();
+            series.Name = vm.Name;
+            series.ImagenPortada = vm.ImagenPortada;
+            series.EnlaceVideo = vm.EnlaceVideo;
+            series.ProductoraId = vm.ProductoraId;
+            series.GeneroPrimarioId = vm.GeneroPrimarioId;
+            series.GeneroSecundarioId = vm.GeneroSecundarioId;
+
+            await _repository.AddAsync(series);
+
+        }
+
+
+        public async Task<SalveSerietViewModel> GetByIdSaveViewModel(int id) 
         {
             var serie = await _repository.GetByIdAsync(id);
 
-            SerietViewModel vm = new();
+            SalveSerietViewModel vm = new();
             vm.Id = id;  
             vm.Name = serie.Name;
             vm.ImagenPortada = serie.ImagenPortada;
@@ -56,5 +72,28 @@ namespace Application.Services
             
             return vm;
         }
+
+        public async Task UpdateSerie(SalveSerietViewModel vm)
+        {
+            var series = await _repository.GetByIdAsync(vm.Id);
+            if (series != null)
+            {
+                series.Name = vm.Name;
+                series.ImagenPortada = vm.ImagenPortada;
+                series.EnlaceVideo = vm.EnlaceVideo;
+                series.ProductoraId = vm.ProductoraId;
+                series.GeneroPrimarioId = vm.GeneroPrimarioId;
+                series.GeneroSecundarioId = vm.GeneroSecundarioId;
+
+                await _repository.UpdateAsync(series);
+            }
+        }
+
+        public async Task Delete(int id)
+        {
+            var serie = await _repository.GetByIdAsync(id);
+            await _repository.DeleteAsync(serie);
+        }
+
     }
 }
