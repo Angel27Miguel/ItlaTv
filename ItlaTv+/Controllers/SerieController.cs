@@ -135,6 +135,11 @@ namespace ItlaTv_.Controllers
             return View(serie);
         }
 
+        public async Task<IActionResult> Delete(int id)
+        {
+            return View(await _serie.GetByIdSaveViewModel(id));
+        }
+
         [HttpPost]
         public async Task<IActionResult> DeletePost(int id)
         {

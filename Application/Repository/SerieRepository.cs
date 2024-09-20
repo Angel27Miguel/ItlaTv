@@ -32,11 +32,6 @@ namespace Application.Repository
             _context.Set<Series>().Remove(series);
             await _context.SaveChangesAsync();
         }
-
-        //public async Task<List<Series>> GetAllAsync()
-        //{
-        //    return await _context.Set<Series>().ToListAsync();
-        //}
         public IQueryable<Series> GetAll()
         {
             return _context.Series.AsQueryable();
