@@ -1,0 +1,80 @@
+﻿<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-12">
+            <form method="get" asp-controller="Home" asp-action="Index">
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="text" name="searchText" class="form-control" placeholder="Buscar por nombre" value="@ViewBag.SearchText" />
+                    </div>
+                    <div class="col-md-3">
+                        <select name="productoraId" class="form-control">
+                            <option value="">Todas las productoras</option>
+                            @foreach (var productora in ViewBag.Productoras)
+                            {
+                                if (productora.Id == ViewBag.SelectedProductoraId)
+                                {
+                                    <option value="@productora.Id" selected>@productora.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@productora.Id">@productora.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select name="generoId" class="form-control">
+                            <option value="">Todos los géneros</option>
+                            @foreach (var genero in ViewBag.Generos)
+                            {
+                                if (genero.Id == ViewBag.SelectedGeneroId)
+                                {
+                                    <option value="@genero.Id" selected>@genero.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@genero.Id">@genero.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary w-100">Buscar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        @if (Model == null || Model.Count == 0)
+        {
+            <h2>No hay series disponibles</h2>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img class="card-img-top" src="@item.ImagenPortada" alt="@item.Name" />
+                        <div class="card-body">
+                            <h4>@item.Name</h4>
+                            <p class="card-text"></p> 
+                            <p class="card-text">
+                                <strong>@item.ProductoraName</strong>  |  
+                                <strong>@item.GeneroPrimarioName</strong>  ●  <strong>@item.GeneroSecundarioName</strong>
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted"></small>
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-sm btn-outline-secondary">Detalle</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
