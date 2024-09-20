@@ -24,7 +24,7 @@
                     </div>
                     <div class="col-md-3">
                         <select name="generoId" class="form-control">
-                            <option value="">Todos los géneros</option>
+                            <option value="">Todos los generos</option>
                             @foreach (var genero in ViewBag.Generos)
                             {
                                 if (genero.Id == ViewBag.SelectedGeneroId)
@@ -62,13 +62,12 @@
                             <h4>@item.Name</h4>
                             <p class="card-text"></p> 
                             <p class="card-text">
-                                <strong>@item.ProductoraName</strong>  |  
-                                <strong>@item.GeneroPrimarioName</strong>  ●  <strong>@item.GeneroSecundarioName</strong>
+                                        <strong>@item.ProductoraName  |  @item.GeneroPrimarioName  ●  @item.GeneroSecundarioName</strong>
                             </p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <small class="text-muted"></small>
                                 <div class="btn-group">
-                                    <a href="#" class="btn btn-sm btn-outline-secondary">Detalle</a>
+                                    <a asp-controller="Serie" asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Detalle</a>
                                 </div>
                             </div>
                         </div>

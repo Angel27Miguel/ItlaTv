@@ -41,5 +41,20 @@ namespace Application.Services
             }).ToList();
         }
 
+        public async Task<SerietViewModel> GetByIdSaveViewModel(int id) 
+        {
+            var serie = await _repository.GetByIdAsync(id);
+
+            SerietViewModel vm = new();
+            vm.Id = id;  
+            vm.Name = serie.Name;
+            vm.ImagenPortada = serie.ImagenPortada;
+            vm.EnlaceVideo = serie.EnlaceVideo;
+            vm.ProductoraId = serie.ProductoraId;
+            vm.GeneroPrimarioId= serie.GeneroPrimarioId;
+            vm.GeneroSecundarioId = serie.GeneroSecundarioId;
+            
+            return vm;
+        }
     }
 }

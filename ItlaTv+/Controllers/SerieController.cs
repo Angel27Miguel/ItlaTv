@@ -1,16 +1,17 @@
-using Application.Services;
+ï»¿using Application.Services;
 using Database.Contexts;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ItlaTv_.Controllers
 {
-    public class HomeController : Controller
+    public class SerieController : Controller
     {
         private readonly SerieService _serie;
         private readonly ApplicationContext _context;
 
-        public HomeController(ApplicationContext context)
+        public SerieController(ApplicationContext context)
         {
             _context = context;
             _serie = new(context);
@@ -18,11 +19,9 @@ namespace ItlaTv_.Controllers
 
         public async Task<IActionResult> Index(string searchText, int? productoraId, int? generoId)
         {
-            // Obtener las productoras y géneros desde la base de datos
             ViewBag.Productoras = await _context.Productoras.ToListAsync();
             ViewBag.Generos = await _context.Generos.ToListAsync();
 
-            // Mantener los valores seleccionados para los filtros
             ViewBag.SelectedProductoraId = productoraId;
             ViewBag.SelectedGeneroId = generoId;
             ViewBag.SearchText = searchText;
@@ -47,8 +46,12 @@ namespace ItlaTv_.Controllers
             return View(serie);
         }
 
+        public async Task<ActionResult> Details(int id)
+        {
+            var serie = await _serie.GetByIdSaveViewModel(id);
 
-
+            return View(serie);
+        }
 
     }
 }

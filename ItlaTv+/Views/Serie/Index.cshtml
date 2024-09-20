@@ -1,0 +1,57 @@
+﻿@model List<Application.ViewModels.SerietViewModel>
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-black">
+                    <h3 class="text-white">Mantenimiento de series</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-3 offset-9 text-end">
+                            <a asp-controller="Producto" asp-action="Create" class="btn btn-outline-success">Crear nueva serie</a>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        @if (Model == null || Model.Count == 0)
+                        {
+                            <h2>No hay productos</h2>
+                        }
+                        else
+                        {
+                            @foreach (Application.ViewModels.SerietViewModel item in Model)
+                            {
+                                <div class="col-12 col-md-4 mb-4">
+                                     <div class="card h-100">
+                                         <img class="card-img-top" src="@item.ImagenPortada" alt="@item.Name" />
+                                         <div class="card-body">
+                                             <h4>@item.Name</h4>
+                                             <p class="card-text"></p> 
+                                             <p class="card-text">
+                                                 <strong>@item.ProductoraName</strong>  |  
+                                                 <strong>@item.GeneroPrimarioName</strong>  ●  <strong>@item.GeneroSecundarioName</strong>
+                                             </p>
+                                             <div class="d-flex justify-content-between align-items-center">
+                                                 <small class="text-muted"></small>
+                                                  <div class="btn-group">
+                                                    <a asp-controller="Producto" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">Editar</a>
+                                                    <a asp-controller="Producto" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Borrar</a>
+                                                </div>
+                                           </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                                               
