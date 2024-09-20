@@ -11,11 +11,9 @@ namespace Application.Services
     public class SerieService
     {
         private readonly SerieRepository _repository;
-        private readonly ApplicationContext _context;
 
         public SerieService(ApplicationContext context)
         {
-            _context = context;
             _repository = new(context);
         }
 
